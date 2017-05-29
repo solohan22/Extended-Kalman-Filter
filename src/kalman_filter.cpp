@@ -54,7 +54,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   double rho_dot;
 
   rho = sqrt( pow(x_[0],2) + pow(x_[1],2) );   // map predicted state to rho - the range
-  if (fabs(rho < 0.0001)) {  //if range equals 0, set both range and bearning to be 0
+  if (fabs(rho) < 0.0001) {  //if range equals 0, set both range and bearning to be 0
     phi = 0;
     rho_dot = 0;
   } else { 
