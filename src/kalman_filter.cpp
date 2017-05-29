@@ -49,16 +49,17 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
     * state update using Extended Kalman Filter 
   */
-  double rho = sqrt( pow(x_[0],2) + pow(x_[1],2) );
+  double rho;
   double phi;
   double rho_dot;
 
-  if (fabs(rho < 0.0001)) { //if range equals 0, set both range and bearning to be 0
+  rho = sqrt( pow(x_[0],2) + pow(x_[1],2) );   // map predicted state to rho - the range
+  if (fabs(rho < 0.0001)) {  //if range equals 0, set both range and bearning to be 0
     phi = 0;
     rho_dot = 0;
   } else { 
-    phi = atan(x_[1] / x_[0]);
-    rho_dot = ((x_[0] * x_[2] + x_[1] * x_[3]) / rho);
+    phi = atan(x_[1] / x_[0]);   // map predicted state to phi - the bearing
+    rho_dot = ((x_[0] * x_[2] + x_[1] * x_[3]) / rho);    // map predicted state to rho_dot - the range rate
   }
 
   MatrixXd z_pred(3, 1);
